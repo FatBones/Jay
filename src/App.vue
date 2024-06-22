@@ -1,0 +1,145 @@
+<template>
+  <div>
+    <div id="back"></div>
+    <div
+      style="
+        -webkit-app-region: drag;
+        height: 5vh;
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+      "
+    >
+      <img
+        style="
+          background-color: transparent;
+          border-color: transparent;
+          color: black;
+          width: 14px;
+          height: 14px;
+          padding: 15px 15px;
+        "
+        src="./assets/img/min.png"
+        class="icon_style"
+        @click="small()"
+      />
+      <img
+        v-if="!currentStatus"
+        style="
+          background-color: transparent;
+          border-color: transparent;
+          color: black;
+          margin: 0;
+          width: 14px;
+          height: 14px;
+          padding: 15px 15px;
+        "
+        src="./assets/img/full.png"
+        class="icon_style"
+        @click="big()"
+      />
+      <img
+        v-else
+        style="
+          background-color: transparent;
+          border-color: transparent;
+          color: black;
+          margin: 0;
+          width: 14px;
+          height: 14px;
+          padding: 15px 15px;
+        "
+        src="./assets/img/review.png"
+        class="icon_style"
+        @click="big()"
+      />
+      <img
+        style="
+          background-color: transparent;
+          border-color: transparent;
+          color: black;
+          margin: 0;
+          width: 14px;
+          height: 14px;
+          padding: 15px 15px;
+        "
+        src="./assets/img/close.png"
+        class="icon_style"
+        @click="close()"
+      />
+    </div>
+    <router-view v-if="isRouterAlive"></router-view>
+    <MusicIcon />
+    <!-- <ClientPeople /> -->
+  </div>
+</template>
+
+<script>
+import MusicIcon from "./components/MusicIcon.vue";
+// import ClientPeople from "./components/ClientPeople.vue";
+const { ipcRenderer } = window.require("electron");
+export default {
+  name: "App",
+  components: {
+    // ClientPeople,
+    MusicIcon,
+  },
+  // 页面重新加载
+  provide() {
+    return {
+      reload: this.reload,
+    };
+  },
+  data() {
+    return {
+      isRouterAlive: true,
+      currentStatus: void 0,
+    };
+  },
+  methods: {
+    reload() {
+      this.isRouterAlive = false;
+      this.$nextTick(function () {
+        this.isRouterAlive = true;
+      });
+    },
+    small() {
+      ipcRenderer.send("min");
+    },
+    big() {
+      ipcRenderer.send("max");
+    },
+    close() {
+      ipcRenderer.send("close");
+    },
+    getCurrentScreemStatus() {
+      ipcRenderer.on("currentStatus", (event, data) => {
+        this.currentStatus = data;
+      });
+    },
+  },
+  mounted() {
+    this.getCurrentScreemStatus();
+  },
+};
+</script>
+
+<style>
+* {
+  user-select: none;
+}
+html{
+  overflow: hidden;
+}
+body {
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+}
+body::-webkit-scrollbar{
+  width: 0px;
+}
+.icon_style {
+  -webkit-app-region: no-drag;
+}
+</style>
