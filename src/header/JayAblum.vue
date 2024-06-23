@@ -1,35 +1,18 @@
 <template>
-  <div>
-    <MusicTitle :musicTitle="musicTitle" />
-    <AlbumImg :imgUrl="imgUrl" />
-    <GroupOfMusic :allMusic="allMusic" :albumName="musicTitle" />
-    <MusicWordsContainer />
-    <MusicPlayer />
-  </div>
+  <PageBuilder
+    :color="'linear-gradient(to right, rgba(210,160,138,0.85), rgba(238,231,165,0.6)'"
+    :musicTitle="musicTitle"
+    :allMusic="allMusic"
+    :imgUrl="imgUrl"
+    :len="len"
+  />
 </template>
 
 <script>
-import GroupOfMusic from "../components/GroupOfMusic.vue";
-import AlbumImg from "../components/AlbumImg.vue";
-import MusicTitle from "../components/MusicTitle.vue";
-import MusicPlayer from "../components/MusicPlayer.vue";
-import MusicWordsContainer from "../components/MusicWordsContainer.vue";
-
+import PageBuilder from "@/hook/pageBuilder.vue";
 export default {
   name: "JayAblum",
-  components: {
-    GroupOfMusic,
-    AlbumImg,
-    MusicTitle,
-    MusicPlayer,
-    MusicWordsContainer,
-  },
-  beforeCreate() {
-    document.body.setAttribute(
-      "style",
-      "background:linear-gradient(to right, rgba(210,160,138,0.85), rgba(238,231,165,0.6)"
-    );
-  },
+  components: { PageBuilder },
   data() {
     return {
       musicTitle: "Jay",

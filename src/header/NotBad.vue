@@ -1,34 +1,18 @@
 <template>
-  <div>
-    <MusicTitle :musicTitle="musicTitle" />
-    <GroupOfMusic :allMusic="allMusic" :albumName="musicTitle" />
-    <AlbumImg :imgUrl="imgUrl" />
-    <MusicPlayer />
-    <MusicWordsContainer />
-  </div>
+  <PageBuilder
+    :color="'linear-gradient(to right, #c7c2ca, #cac2cf, #cec1d3, #d1c1d7, #d5c0db)'"
+    :musicTitle="musicTitle"
+    :allMusic="allMusic"
+    :imgUrl="imgUrl"
+    :len="len"
+  />
 </template>
 
 <script>
-import GroupOfMusic from "../components/GroupOfMusic.vue";
-import AlbumImg from "../components/AlbumImg.vue";
-import MusicTitle from "../components/MusicTitle.vue";
-import MusicPlayer from "../components/MusicPlayer.vue";
-import MusicWordsContainer from "../components/MusicWordsContainer.vue";
+import PageBuilder from "@/hook/pageBuilder.vue";
 export default {
   name: "NotBad",
-  components: {
-    GroupOfMusic,
-    AlbumImg,
-    MusicTitle,
-    MusicPlayer,
-    MusicWordsContainer,
-  },
-  beforeCreate() {
-    document.body.setAttribute(
-      "style",
-      "background-image: linear-gradient(to right, #c7c2ca, #cac2cf, #cec1d3, #d1c1d7, #d5c0db);"
-    );
-  },
+  components: { PageBuilder },
   data() {
     return {
       musicTitle: "哎哟，不错哦",

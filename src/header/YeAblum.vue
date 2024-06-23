@@ -1,30 +1,18 @@
 <template>
-  <div>
-    <MusicTitle :musicTitle="musicTitle"/>
-    <GroupOfMusic :allMusic="allMusic" :albumName="musicTitle"/>
-    <AlbumImg :imgUrl="imgUrl"/>
-    <MusicPlayer/>
-    <MusicWordsContainer/>
-  </div>
+  <PageBuilder
+    :color="'linear-gradient(to right, rgba(105,132,79,0.85), rgba(25,99,28,0.65)'"
+    :musicTitle="musicTitle"
+    :allMusic="allMusic"
+    :imgUrl="imgUrl"
+    :len="len"
+  />
 </template>
 
 <script>
-    import GroupOfMusic from "../components/GroupOfMusic.vue";
-    import AlbumImg from "../components/AlbumImg.vue";
-    import MusicTitle from "../components/MusicTitle.vue";
-    import MusicPlayer from "../components/MusicPlayer.vue";
-    import MusicWordsContainer from "../components/MusicWordsContainer.vue";
-
+import PageBuilder from "@/hook/pageBuilder.vue";
     export default {
       name: 'YeAblum',
-
-      components: {
-          GroupOfMusic, AlbumImg, MusicTitle, MusicPlayer, MusicWordsContainer
-      },
-      beforeCreate(){
-        document.body.setAttribute('style', 'background:linear-gradient(to right, rgba(105,132,79,0.85), rgba(25,99,28,0.65)');
-
-      },
+      components: {PageBuilder },
       data(){
           return {
             musicTitle:'叶惠美',

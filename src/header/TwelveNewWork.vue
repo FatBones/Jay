@@ -1,35 +1,18 @@
 <template>
-  <div>
-    <MusicTitle :musicTitle="musicTitle" />
-    <GroupOfMusic :allMusic="allMusic" :albumName="musicTitle" />
-    <AlbumImg :imgUrl="imgUrl" />
-    <MusicPlayer />
-    <MusicWordsContainer />
-  </div>
+  <PageBuilder
+    :color="'linear-gradient(to right, #e79f4b, #e5a253, #e4a45b, #e2a762, #e0a96a)'"
+    :musicTitle="musicTitle"
+    :allMusic="allMusic"
+    :imgUrl="imgUrl"
+    :len="len"
+  />
 </template>
 
 <script>
-import GroupOfMusic from "../components/GroupOfMusic.vue";
-import AlbumImg from "../components/AlbumImg.vue";
-import MusicTitle from "../components/MusicTitle.vue";
-import MusicPlayer from "../components/MusicPlayer.vue";
-import MusicWordsContainer from "../components/MusicWordsContainer.vue";
-
+import PageBuilder from "@/hook/pageBuilder.vue";
 export default {
   name: "TwelveNewWork",
-  components: {
-    GroupOfMusic,
-    AlbumImg,
-    MusicTitle,
-    MusicPlayer,
-    MusicWordsContainer,
-  },
-  beforeCreate() {
-    document.body.setAttribute(
-      "style",
-      "background-image: linear-gradient(to right, #40a8c7, #3d9ebd, #3a93b3, #3789a9, #347f9f);"
-    );
-  },
+  components: { PageBuilder },
   data() {
     return {
       musicTitle: "十二新作",
@@ -39,7 +22,11 @@ export default {
         { id: "03", name: "公公偏头痛", url: "/12.十二新作/公公偏头痛.mp3" },
         { id: "04", name: "明明就", url: "/12.十二新作/明明就.mp3" },
         { id: "05", name: "傻笑", url: "/12.十二新作/傻笑.mp3" },
-        { id: "06", name: "比较大的大提琴", url: "/12.十二新作/比较大的大提琴.mp3", },
+        {
+          id: "06",
+          name: "比较大的大提琴",
+          url: "/12.十二新作/比较大的大提琴.mp3",
+        },
         { id: "07", name: "爱你没差", url: "/12.十二新作/爱你没差.mp3" },
         { id: "08", name: "红尘客栈", url: "/12.十二新作/红尘客栈.mp3" },
         { id: "09", name: "梦想启动", url: "/12.十二新作/梦想启动.mp3" },
