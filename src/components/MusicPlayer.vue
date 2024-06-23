@@ -5,9 +5,14 @@
       <div
         class="progressContainer"
         ref="progressContainer"
-        @click="setPlaceFun($event)"
+        @click.stop="setPlaceFun($event)"
       >
-        <div class="progress" ref="progress"></div>
+        <div class="progress" ref="progress">
+          <div
+            class="contact showContact"
+            @mousedown="slipPlaceFun($event)"
+          ></div>
+        </div>
       </div>
       <div class="endPlace" ref="endPlace"></div>
     </div>
@@ -37,7 +42,11 @@
             src="../assets/img/声音.png"
             @click="muteOrNotFun()"
           />
-          <div class="volumeContainer" ref="volumeContainer">
+          <div
+            class="volumeContainer"
+            ref="volumeContainer"
+            @click="setVolumeFun($event)"
+          >
             <div class="volumeLength" ref="volumeLength">
               <div
                 class="contact"
@@ -113,8 +122,13 @@ export default {
     },
     //设置音量
     setVolumeFun(event) {
-      let x = event.offsetX;
-      v = x / this.$refs.volumeContainer.clientWidth;
+      let volumeContainer = this.$refs.volumeContainer;
+      let x =
+        event.clientX -
+        document
+          .getElementsByClassName("volumeContainer")[0]
+          .getBoundingClientRect().left;
+      v = x / volumeContainer.clientWidth;
       this.$refs.volumeLength.style.width = v * 100 + "%";
       if (this.runningMusic != undefined) this.runningMusic.volume = v;
       for (let i = 0; i < this.allAudios.length; i++) {
@@ -124,7 +138,7 @@ export default {
     },
     //滑动音量
     slipVolumeFun(ev) {
-      let contact = document.getElementsByClassName("contact")[0];
+      let contact = document.getElementsByClassName("contact")[1];
       let volumeContainer =
         document.getElementsByClassName("volumeContainer")[0];
       let volumeLength = document.getElementsByClassName("volumeLength")[0];
@@ -133,8 +147,8 @@ export default {
       let e = ev || window.event; //兼容性
       let mouseX = e.clientX; //鼠标按下的位置
       let newL = void 0;
-      let runningMusic = this.runningMusic
-      let allAudios = this.allAudios
+      let runningMusic = this.runningMusic;
+      let allAudios = this.allAudios;
       window.onmousemove = function (ev) {
         let e = ev || window.event;
         let moveL = e.clientX - mouseX; //鼠标移动的距离
@@ -148,8 +162,7 @@ export default {
         }
         // 改变left值
         volumeLength.style.width = newL + "%";
-        if (runningMusic != undefined)
-          runningMusic.volume = Number(newL) / 100;
+        if (runningMusic != undefined) runningMusic.volume = Number(newL) / 100;
         for (let i = 0; i < allAudios.length; i++) {
           allAudios[i].volume = Number(newL) / 100;
         }
@@ -183,12 +196,50 @@ export default {
     },
     //点击进度条，跳转音频位置
     setPlaceFun(event) {
-      let x = event.offsetX;
+      let progressContainer = this.$refs.progressContainer;
+      let x =
+        event.clientX -
+        document
+          .getElementsByClassName("progressContainer")[0]
+          .getBoundingClientRect().left;
       if (this.runningMusic != undefined)
         this.runningMusic.currentTime =
-          (x / this.$refs.progressContainer.clientWidth) *
-          this.runningMusic.duration;
+          (x / progressContainer.clientWidth) * this.runningMusic.duration;
       else if (this.runningMusic === undefined) alert(1);
+    },
+    slipPlaceFun(event) {
+      let progressContainer =
+        document.getElementsByClassName("progressContainer")[0];
+      let progress = document.getElementsByClassName("progress")[0];
+      let cha = progressContainer.clientWidth;
+      let currenwtProgress = progress.clientWidth;
+      let e = event || window.event;
+      let mouseX = e.clientX;
+      let runningMusic = this.runningMusic;
+      let volume = runningMusic.volume;
+      window.onmousemove = function (ev) {
+        runningMusic.volume = 0;
+        let e = ev || window.event;
+        let moveL = e.clientX - mouseX;
+        let newL = currenwtProgress + moveL;
+        if (newL < 0) newL = 0;
+        if (newL >= cha) {
+          newL = cha;
+        }
+        if (runningMusic != undefined) {
+          runningMusic.currentTime =
+            (newL / progressContainer.clientWidth) * runningMusic.duration;
+        } else if (runningMusic === undefined)
+          console.log("runningMusic is undefined");
+        return false; //取消默认事件
+      };
+
+      window.onmouseup = function () {
+        runningMusic.volume = volume;
+        window.onmousemove = false; //解绑移动事件
+        return false;
+      };
+      return false;
     },
     //随着音频播放，进度条自动前进
     updateFun() {
@@ -224,7 +275,7 @@ export default {
     },
     //下一首
     nextFun() {
-      console.log('next');
+      console.log("next");
       if (this.allIcon[this.getId])
         this.allIcon[this.getId].src = require("../assets/img/播放.png");
       this.getId++;
@@ -239,7 +290,7 @@ export default {
       this.$bus.$emit("updateGetId", this.getId);
       this.$bus.$emit("changeImg", this.allMusic[this.getId].albumName);
       this.useInnerEndFun();
-      console.log('nextone');
+      console.log("nextone");
     },
     //上一首
     lastFun() {
@@ -422,6 +473,9 @@ export default {
   width: 450px;
   cursor: pointer;
 }
+.progressGroup:hover .showContact {
+  opacity: 1;
+}
 .progress {
   background: rgba(0, 0, 0, 0.7);
   border-radius: 2px;
@@ -435,8 +489,11 @@ export default {
   border-radius: 5px;
   position: relative;
   top: -3.5px;
-  left: 2px;
-  background-color: rgba(0, 0, 0, 0.7);
+  left: 4px;
+  background-color: rgba(0, 0, 0, 0.8);
   float: right;
+}
+.showContact {
+  opacity: 0;
 }
 </style>
