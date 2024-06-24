@@ -34,7 +34,7 @@ export default {
     };
   },
   beforeMount() {
-    document.body.setAttribute("style", `background:${this.newColor}`);
+    document.getElementById('allOfThose').setAttribute("style", `background:${this.newColor}`);
   },
   mounted() {
     this.isAudioExits();

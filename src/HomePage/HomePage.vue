@@ -180,10 +180,12 @@ export default {
     };
   },
   beforeCreate() {
-    document.body.setAttribute(
-      "style",
-      "background-image: linear-gradient(to right, #0e979e, #2f9f9d, #45a69b, #59ad9a, #6cb499);"
-    );
+    document
+      .getElementById("allOfThose")
+      .setAttribute(
+        "style",
+        "background-image: linear-gradient(to right, #0e979e, #2f9f9d, #45a69b, #59ad9a, #6cb499);"
+      );
   },
 };
 </script>
