@@ -370,7 +370,7 @@ export default {
   user-select: none;
   width: 30px;
   height: 30px;
-  border-radius: 10px;
+  border-radius: 5px;
 }
 
 #shangYiShou {

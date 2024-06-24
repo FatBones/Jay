@@ -22,7 +22,7 @@
         @timeupdate="updateFun()"
         :src="audioSrc"
       ></audio>
-      <span class="Group" ref="Group">
+      <span v-if="music.isAudioReady" class="Group" ref="Group">
         <a class="begin" href="javascript:;"
           ><img
             class="zanTing"
@@ -40,6 +40,11 @@
             @click="keep(music.name, albumName)"
         /></a>
       </span>
+      <!-- <span v-else class="Group" style="opacity: 1;">
+        <a class="uploadMusic" href="javascript:;"
+          ><img class="shangChuan" src="../assets/img/uploadMusic.png"
+        /></a>
+      </span> -->
     </div>
   </div>
 </template>

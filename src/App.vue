@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="allOfThose">
     <div id="back"></div>
     <div
       style="
@@ -71,18 +71,21 @@
     <router-view v-if="isRouterAlive"></router-view>
     <MusicIcon />
     <!-- <ClientPeople /> -->
+    <!-- <PersonalPage @click="toPersonalPage()" /> -->
   </div>
 </template>
 
 <script>
 import MusicIcon from "./components/MusicIcon.vue";
 // import ClientPeople from "./components/ClientPeople.vue";
+// import PersonalPage from "./PersonalPage/PersonalPage.vue";
 const { ipcRenderer } = window.require("electron");
 export default {
   name: "App",
   components: {
     // ClientPeople,
     MusicIcon,
+    // PersonalPage,
   },
   // 页面重新加载
   provide() {
@@ -95,6 +98,12 @@ export default {
       isRouterAlive: true,
       currentStatus: void 0,
     };
+  },
+  beforeCreate() {
+    document.getElementById('allOfThose').setAttribute(
+      "style",
+      "background-image: linear-gradient(to right, #0e979e, #2f9f9d, #45a69b, #59ad9a, #6cb499);"
+    );
   },
   methods: {
     reload() {
@@ -117,6 +126,9 @@ export default {
         this.currentStatus = data;
       });
     },
+    toPersonalPage() {
+      this.$router.push("/personalpage");
+    },
   },
   mounted() {
     this.getCurrentScreemStatus();
@@ -128,7 +140,7 @@ export default {
 * {
   user-select: none;
 }
-html{
+html {
   overflow: hidden;
 }
 body {
@@ -136,10 +148,15 @@ body {
   height: 100%;
   width: 100%;
 }
-body::-webkit-scrollbar{
+body::-webkit-scrollbar {
   width: 0px;
 }
 .icon_style {
   -webkit-app-region: no-drag;
+}
+#allOfThose{
+  border-radius: 10px;
+  widows: 100vw;
+  height: 100vh;
 }
 </style>
