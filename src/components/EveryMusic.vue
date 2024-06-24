@@ -1,7 +1,17 @@
 <template>
   <div>
-    <div class="MusicBar" ref="MusicBar">
-      <p class="MusicName">{{ music.name }}</p>
+    <div
+      class="MusicBar"
+      ref="MusicBar"
+      :class="music.isAudioReady ? 'showButtons' : ''"
+    >
+      <p
+        class="MusicName"
+        ref="MusicName"
+        :class="music.isAudioReady ? 'readyMusic' : ''"
+      >
+        {{ music.name }}
+      </p>
       <img class="onplaying" ref="onplaying" src="../assets/img/playing.png" />
       <audio
         class="audio"
@@ -174,7 +184,8 @@ export default {
 }
 .zanting,
 .dianzan,
-.xiazai {
+.xiazai,
+.shangChuan {
   user-select: none;
 }
 </style>

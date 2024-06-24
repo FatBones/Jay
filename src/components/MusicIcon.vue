@@ -26,7 +26,7 @@ export default {
         height: 33px;
         position: absolute;
         bottom: 10%;
-        right: 150px;
+        right: calc(5vw + 120px);
         border-radius: 10px;
     }
     #backIcon img{

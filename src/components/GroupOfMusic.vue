@@ -44,11 +44,16 @@ export default {
   line-height: 40px;
   font-family: "也字工厂果酱体";
   font-weight: bold;
-  color: rgba(0, 0, 0, 0.7);
+  color: rgba(0, 0, 0, 0.5);
   width: 500px;
   border: 2px rgba(255, 255, 255, 0.2);
   border-radius: 1px;
   border-bottom-style: dashed;
+  text-decoration: line-through;
+}
+.readyMusic {
+  color: rgba(0, 0, 0, 1);
+  text-decoration: none;
 }
 .MusicBar {
   width: 500px;
@@ -64,7 +69,7 @@ export default {
   opacity: 0;
   transition: opacity 0.6s;
 }
-.MusicBar:hover .Group {
+.showButtons:hover .Group {
   opacity: 1;
 }
 .begin {
@@ -72,6 +77,10 @@ export default {
   right: 70px;
 }
 .keep {
+  position: absolute;
+  right: 10px;
+}
+.uploadMusic {
   position: absolute;
   right: 10px;
 }
@@ -86,12 +95,10 @@ export default {
 
 .zanTing,
 .dianZan,
-.xiaZai {
+.xiaZai,
+.shangChuan {
   width: 20px;
   height: 20px;
   border-radius: 7px;
 }
-/*.zanTing:hover, .dianZan:hover, .xiaZai:hover{*/
-/*    background: rgba(0,0,0,0.1);*/
-/*}*/
 </style>

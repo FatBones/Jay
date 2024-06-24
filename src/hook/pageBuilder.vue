@@ -1,7 +1,7 @@
 <template>
   <div>
     <MusicTitle :musicTitle="musicTitle" />
-    <GroupOfMusic :allMusic="newAllMusic" :albumName="newMusicTitle" />
+    <GroupOfMusic :allMusic="allMusicWithSymbol" :albumName="newMusicTitle" />
     <AlbumImg :imgUrl="imgUrl" />
     <MusicPlayer />
     <MusicWordsContainer />
@@ -14,7 +14,6 @@ import AlbumImg from "../components/AlbumImg.vue";
 import MusicTitle from "../components/MusicTitle.vue";
 import MusicPlayer from "../components/MusicPlayer.vue";
 import MusicWordsContainer from "../components/MusicWordsContainer.vue";
-
 export default {
   name: "PageBuilder",
   props: ["color", "musicTitle", "allMusic", "imgUrl", "len"],
@@ -30,11 +29,28 @@ export default {
       newColor: this.color,
       newMusicTitle: this.musicTitle,
       newAllMusic: this.allMusic,
+      allMusicWithSymbol: void 0,
       newLen: this.len,
     };
   },
   beforeMount() {
     document.body.setAttribute("style", `background:${this.newColor}`);
+  },
+  mounted() {
+    this.isAudioExits();
+  },
+  methods: {
+    isAudioExits() {
+      for (const item of this.newAllMusic) {
+        try {
+          require("../../static" + item.url);
+          this.$set(item, 'isAudioReady', true)
+        } catch {
+          this.$set(item, 'isAudioReady', false)
+        }
+      }
+      this.allMusicWithSymbol = this.newAllMusic
+    },
   },
 };
 </script>
