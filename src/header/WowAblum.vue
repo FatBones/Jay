@@ -1,6 +1,6 @@
 <template>
   <PageBuilder
-    :color="'linear-gradient(to right, #790a78, #85348a, #91509c, #9e6aac, #ab83bc)'"
+    :color="'linear-gradient(to right, #993480, #a94e8a, #b76695, #c57ea2, #d196b0);'"
     :musicTitle="musicTitle"
     :allMusic="allMusic"
     :imgUrl="imgUrl"

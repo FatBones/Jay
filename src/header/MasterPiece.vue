@@ -56,7 +56,7 @@ export default {
         {
           id: "10",
           name: "粉色海洋",
-          url: "/15.masterpiece/粉色海洋.mp3",
+          url: "/15.masterpiece/pinkSea.mp3",
         },
         {
           id: "11",

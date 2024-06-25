@@ -246,45 +246,45 @@ export default {
 }
 
 .menu-toggler:checked ~ ul .menu-item:nth-child(1) {
-  transform: rotate(0deg) translateX(-150px);
-}
-.menu-item:nth-child(1) a {
-  transform: rotate(0deg);
-}
-
-.menu-toggler:checked ~ ul .menu-item:nth-child(2) {
-  transform: rotate(60deg) translateX(-150px);
-}
-.menu-item:nth-child(2) a {
-  transform: rotate(-60deg);
-}
-
-.menu-toggler:checked ~ ul .menu-item:nth-child(3) {
   transform: rotate(120deg) translateX(-150px);
 }
-.menu-item:nth-child(3) a {
+.menu-item:nth-child(1) a {
   transform: rotate(-120deg);
 }
 
-.menu-toggler:checked ~ ul .menu-item:nth-child(4) {
+.menu-toggler:checked ~ ul .menu-item:nth-child(2) {
   transform: rotate(180deg) translateX(-150px);
 }
-.menu-item:nth-child(4) a {
+.menu-item:nth-child(2) a {
   transform: rotate(-180deg);
 }
 
-.menu-toggler:checked ~ ul .menu-item:nth-child(5) {
+.menu-toggler:checked ~ ul .menu-item:nth-child(3) {
   transform: rotate(240deg) translateX(-150px);
 }
-.menu-item:nth-child(5) a {
+.menu-item:nth-child(3) a {
   transform: rotate(-240deg);
 }
 
-.menu-toggler:checked ~ ul .menu-item:nth-child(6) {
+.menu-toggler:checked ~ ul .menu-item:nth-child(4) {
   transform: rotate(300deg) translateX(-150px);
 }
-.menu-item:nth-child(6) a {
+.menu-item:nth-child(4) a {
   transform: rotate(-300deg);
+}
+
+.menu-toggler:checked ~ ul .menu-item:nth-child(5) {
+  transform: rotate(360deg) translateX(-150px);
+}
+.menu-item:nth-child(5) a {
+  transform: rotate(-360deg);
+}
+
+.menu-toggler:checked ~ ul .menu-item:nth-child(6) {
+  transform: rotate(420deg) translateX(-150px);
+}
+.menu-item:nth-child(6) a {
+  transform: rotate(-420deg);
 }
 
 .menu-toggler:checked ~ ul .menu-item:nth-child(7) {
