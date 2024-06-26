@@ -1,6 +1,6 @@
 <template>
   <PageBuilder
-    :color="'linear-gradient(to right, #392b1a, #e39d55)'"
+    :color="'linear-gradient(to right, #392b1a, #44321d, #4f381f, #5a3f22, #664625);'"
     :musicTitle="musicTitle"
     :allMusic="allMusic"
     :imgUrl="imgUrl"
@@ -15,7 +15,7 @@ export default {
   components: { PageBuilder },
   data() {
     return {
-      musicTitle: "11月的肖邦",
+      musicTitle: "十一月的肖邦",
       allMusic: [
         { id: "01", name: "夜曲", url: "/6.11月的肖邦", audio: "/夜曲.mp3" },
         {
@@ -62,9 +62,21 @@ export default {
           url: "/6.11月的肖邦",
           audio: "/珊瑚海.mp3",
         },
+        {
+          id: "11",
+          name: "漂移",
+          url: "/6.11月的肖邦",
+          audio: "/漂移.mp3",
+        },
+        {
+          id: "12",
+          name: "一路向北",
+          url: "/6.11月的肖邦",
+          audio: "/一路向北.mp3",
+        },
       ],
       imgUrl: require("../assets/album/11月的肖邦.jpg"),
-      len: "10",
+      len: "12",
     };
   },
   methods: {},

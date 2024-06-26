@@ -83,7 +83,7 @@ export default {
 .uploadMusic {
   position: relative;
   left: 420px;
-  bottom: 60px;
+  bottom: 55px;
 }
 .admire {
   position: absolute;

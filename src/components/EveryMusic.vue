@@ -23,7 +23,7 @@
         :src="audioSrc"
       ></audio>
       <span class="uploadMusic" v-if="!isAudioReady">
-        <MusicUploader :album="this.music.url"/>
+        <MusicUploader :index="musicIndex" :album="this.music.url" />
       </span>
       <span class="Group" ref="Group">
         <a class="begin" href="javascript:;"
@@ -65,7 +65,8 @@ export default {
   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!动态指定url！！！！！！！！！！！！！！！！！！！！！！！！！！
   data() {
     return {
-      audioSrc: "D:\\A_own_code\\Jay\\static" + this.music.url + this.music.audio,
+      audioSrc:
+        "D:\\A_own_code\\Jay\\static" + this.music.url + this.music.audio,
       zanTingSrc: require("../assets/img/播放.png"),
       musicIndex: this.music.id,
       isAudioReady: this.music.isAudioReady,
@@ -91,8 +92,13 @@ export default {
         onplayingElements[j].style.opacity = "0";
       }
     });
-    this.$bus.$on("changeIsAudioReady", (symbol) => {
-      this.isAudioReady = symbol;
+    this.$bus.$on("changeIsAudioReady", (index) => {
+      let musicBarArr = document.getElementsByClassName("MusicBar");
+      let musicNameArr = document.getElementsByClassName("MusicName");
+
+      musicBarArr[index - 1].className += " showButtons";
+      musicNameArr[index - 1].className += " readyMusic";
+      // this.isAudioReady = symbol;
     });
     this.judge();
   },
@@ -108,6 +114,10 @@ export default {
       } else if (parseInt(this.len) === 12) {
         this.$refs.MusicBar.style.height = "32px";
         this.$refs.Group.style.bottom = "33px";
+      } else if (parseInt(this.len) === 13) {
+        this.$refs.MusicBar.style.height = "29px";
+        this.$refs.Group.style.bottom = "30px";
+        this.$refs.MusicName.style.lineHight = "29px";
       }
     },
     //点击播放键
@@ -199,7 +209,7 @@ export default {
   width: 20px;
   height: 20px;
   position: relative;
-  top: -35px;
+  top: -33px;
   left: 200px;
   opacity: 0;
   transform: rotate(10deg);
