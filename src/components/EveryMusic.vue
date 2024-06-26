@@ -65,7 +65,7 @@ export default {
   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!动态指定url！！！！！！！！！！！！！！！！！！！！！！！！！！
   data() {
     return {
-      audioSrc: require("../../static" + this.music.url + this.music.audio),
+      audioSrc: "D:\\A_own_code\\Jay\\static" + this.music.url + this.music.audio,
       zanTingSrc: require("../assets/img/播放.png"),
       musicIndex: this.music.id,
       isAudioReady: this.music.isAudioReady,
@@ -199,7 +199,7 @@ export default {
   width: 20px;
   height: 20px;
   position: relative;
-  top: -30px;
+  top: -35px;
   left: 200px;
   opacity: 0;
   transform: rotate(10deg);

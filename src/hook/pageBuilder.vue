@@ -4,7 +4,7 @@
     <GroupOfMusic :allMusic="allMusicWithSymbol" :albumName="newMusicTitle" />
     <AlbumImg :imgUrl="imgUrl" />
     <MusicPlayer />
-    <MusicWordsContainer />
+    <MusicWordsContainer :albumName="newMusicTitle"/>
   </div>
 </template>
 

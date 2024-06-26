@@ -25,8 +25,10 @@
 
 <script>
 import axios from "axios";
+import { downloadWord } from "@/api/upload";
 export default {
   name: "MusicWordsContainer",
+  props: ["albumName"],
   data() {
     return {
       musicName: "",
@@ -54,7 +56,7 @@ export default {
     async getWords(musicName) {
       this.musicName = musicName;
       let num = 0;
-      let musicNameArr = ["夜曲", "斗牛", "我的地盘", "彩虹"];
+      let musicNameArr = ["夜曲", "斗牛", "我的地盘", "彩虹", "借口"];
       if (musicNameArr.includes(musicName)) num = 1;
       else if (musicName == "简单爱") num = 2;
       else if (musicName == "对不起") num = 3;
@@ -63,6 +65,7 @@ export default {
       let port = window.location.port;
       let useUrl = `http://localhost:${port}/api/MIGUM3.0/v1.0/content/search_all.do?&ua=Android_migu&version=5.0.1&text=${this.musicName}&pageNo=1&pageSize=10&searchSwitch={"song":1,"album":0,"singer":0,"tagSong":0,"mvSong":0,"songlist":0,"bestShow":1}`;
       let result = await axios.get(useUrl);
+      // console.log("🚀 ~ getWords ~ result:", result);
       let lyricUrl = result.data.songResultData.result[num].lyricUrl;
       lyricUrl = lyricUrl.replace(
         "https://d.musicapp.migu.cn",
@@ -73,6 +76,7 @@ export default {
         `http://localhost:${port}/word`
       );
       let res = await axios.get(lyricUrl);
+      await downloadWord(res.data, this.albumName + "/" + this.musicName);
       let lyrics = res.data.split("\n");
       let lrcObj = {};
       for (let i = 0; i < lyrics.length; i++) {

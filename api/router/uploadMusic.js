@@ -11,8 +11,17 @@ const storage = multer.diskStorage({
 })
 const upload = multer({ storage: storage })
 
-router.post('/music', upload.single('audio'), (req,res) => {
+const fs = require('fs')
+
+router.post('/music', upload.single('audio'), (req, res) => {
     res.send('File uploaded successfully')
+})
+
+router.post('/word', (req, res) => {
+    const url = `C:\\Users\\22386\\Desktop\\Jay_music_word\\${req.query.name}.txt`
+    fs.writeFileSync(url, Object.keys(req.body)[0])
+    console.log("🚀 ~ router.post ~ url:", url)
+    res.send('Word download successfully')
 })
 
 module.exports = router
