@@ -46,10 +46,14 @@ async function createWindow() {
 
 ipcMain.on('min', () => win.minimize())
 
-ipcMain.on('max', (e) => {
+let oldWidth = 0
+let oldHeight = 0
+ipcMain.on('max', (e, width, height) => {
   if (win.isMaximized()) {  //判断窗口是否最大化
-    win.restore()    //将窗口恢复为之前的状态
+    win.setSize(oldWidth, oldHeight)  //将窗口恢复为之前的状态
   } else {
+    oldWidth = width
+    oldHeight = height
     win.maximize()   //将窗口全屏
   }
   e.reply('currentStatus', win.isMaximized())

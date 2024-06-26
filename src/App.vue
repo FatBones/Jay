@@ -1,5 +1,5 @@
 <template>
-  <div id="allOfThose">
+  <div id="allOfThose" ref="allOfThose">
     <div id="back"></div>
     <div
       style="
@@ -10,63 +10,20 @@
         justify-content: flex-end;
       "
     >
-      <img
-        style="
-          background-color: transparent;
-          border-color: transparent;
-          color: black;
-          width: 14px;
-          height: 14px;
-          padding: 15px 15px;
-        "
-        src="./assets/img/min.png"
-        class="icon_style"
-        @click="small()"
-      />
+      <img src="./assets/img/min.png" class="icon_style" @click="small()" />
       <img
         v-if="!currentStatus"
-        style="
-          background-color: transparent;
-          border-color: transparent;
-          color: black;
-          margin: 0;
-          width: 14px;
-          height: 14px;
-          padding: 15px 15px;
-        "
         src="./assets/img/full.png"
         class="icon_style"
         @click="big()"
       />
       <img
         v-else
-        style="
-          background-color: transparent;
-          border-color: transparent;
-          color: black;
-          margin: 0;
-          width: 14px;
-          height: 14px;
-          padding: 15px 15px;
-        "
         src="./assets/img/review.png"
         class="icon_style"
         @click="big()"
       />
-      <img
-        style="
-          background-color: transparent;
-          border-color: transparent;
-          color: black;
-          margin: 0;
-          width: 14px;
-          height: 14px;
-          padding: 15px 15px;
-        "
-        src="./assets/img/close.png"
-        class="icon_style"
-        @click="close()"
-      />
+      <img src="./assets/img/close.png" class="icon_style" @click="close()" />
     </div>
     <router-view v-if="isRouterAlive"></router-view>
     <MusicIcon />
@@ -100,10 +57,12 @@ export default {
     };
   },
   beforeCreate() {
-    document.getElementById('allOfThose').setAttribute(
-      "style",
-      "background-image: linear-gradient(to right, #0e979e, #2f9f9d, #45a69b, #59ad9a, #6cb499);"
-    );
+    document
+      .getElementById("allOfThose")
+      .setAttribute(
+        "style",
+        "background-image: linear-gradient(to right, #0e979e, #2f9f9d, #45a69b, #59ad9a, #6cb499);"
+      );
   },
   methods: {
     reload() {
@@ -116,7 +75,13 @@ export default {
       ipcRenderer.send("min");
     },
     big() {
-      ipcRenderer.send("max");
+      let currentWidth = void 0;
+      let currentHeight = void 0;
+      if (!this.currentStatus) {
+        currentWidth = document.getElementById("allOfThose").clientWidth;
+        currentHeight = document.getElementById("allOfThose").clientHeight;
+      }
+      ipcRenderer.send("max", currentWidth, currentHeight);
     },
     close() {
       ipcRenderer.send("close");
@@ -153,8 +118,21 @@ body::-webkit-scrollbar {
 }
 .icon_style {
   -webkit-app-region: no-drag;
+  background-color: transparent;
+  border-color: transparent;
+  color: black;
+  margin: 0;
+  width: 14px;
+  height: 14px;
+  padding: 15px 15px;
 }
-#allOfThose{
+.max {
+  background-image: url("./assets/img/full.png");
+}
+.restore {
+  background-image: url("./assets/img/review.png");
+}
+#allOfThose {
   border-radius: 10px;
   widows: 100vw;
   height: 100vh;

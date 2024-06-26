@@ -287,6 +287,7 @@ export default {
       this.BigIcon = require("../assets/img/Big暂停.png");
       this.runningMusic = this.allAudios[this.getId];
       this.$bus.$emit("showWord", this.allMusic[this.getId].name);
+      this.$bus.$emit("showOnplaying", this.getId);
       this.$bus.$emit("updateGetId", this.getId);
       this.$bus.$emit("changeImg", this.allMusic[this.getId].albumName);
       this.useInnerEndFun();
@@ -305,6 +306,7 @@ export default {
       this.BigIcon = require("../assets/img/Big暂停.png");
       this.runningMusic = this.allAudios[this.getId];
       this.$bus.$emit("showWord", this.allMusic[this.getId].name);
+      this.$bus.$emit("showOnplaying", this.getId);
       this.$bus.$emit("updateGetId", this.getId);
       this.$bus.$emit("changeImg", this.allMusic[this.getId].albumName);
       this.useInnerEndFun();

@@ -54,17 +54,24 @@ export default {
     async getWords(musicName) {
       this.musicName = musicName;
       let num = 0;
-      if (musicName == "夜曲" || musicName == "斗牛" || musicName == "我的地盘")
-        num = 1;
-      else if (musicName == "简单爱") num = 6;
+      let musicNameArr = ["夜曲", "斗牛", "我的地盘", "彩虹"];
+      if (musicNameArr.includes(musicName)) num = 1;
+      else if (musicName == "简单爱") num = 2;
+      else if (musicName == "对不起") num = 3;
       //重载歌词
       this.keyArr = [];
       let port = window.location.port;
       let useUrl = `http://localhost:${port}/api/MIGUM3.0/v1.0/content/search_all.do?&ua=Android_migu&version=5.0.1&text=${this.musicName}&pageNo=1&pageSize=10&searchSwitch={"song":1,"album":0,"singer":0,"tagSong":0,"mvSong":0,"songlist":0,"bestShow":1}`;
       let result = await axios.get(useUrl);
       let lyricUrl = result.data.songResultData.result[num].lyricUrl;
-      lyricUrl = lyricUrl.replace('https://d.musicapp.migu.cn', `http://localhost:${port}/word`)
-      lyricUrl = lyricUrl.replace('http://d.musicapp.migu.cn', `http://localhost:${port}/word`)
+      lyricUrl = lyricUrl.replace(
+        "https://d.musicapp.migu.cn",
+        `http://localhost:${port}/word`
+      );
+      lyricUrl = lyricUrl.replace(
+        "http://d.musicapp.migu.cn",
+        `http://localhost:${port}/word`
+      );
       let res = await axios.get(lyricUrl);
       let lyrics = res.data.split("\n");
       let lrcObj = {};
