@@ -65,7 +65,7 @@ export default {
 .Group {
   position: relative;
   bottom: 35px;
-  left: 435px;
+  left: 430px;
   opacity: 0;
   transition: opacity 0.6s;
 }
@@ -81,8 +81,9 @@ export default {
   right: 10px;
 }
 .uploadMusic {
-  position: absolute;
-  right: 10px;
+  position: relative;
+  left: 420px;
+  bottom: 60px;
 }
 .admire {
   position: absolute;

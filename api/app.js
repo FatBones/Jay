@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 
 // 识别 req.body
-app.use(express.urlencoded({extended:false}))
+app.use(express.urlencoded({ extended: false }))
 // 在路由之前封装send函数
 app.use((req, res, next) => {
     res.fail = ((err, statusbar = 1) => {
@@ -17,7 +17,7 @@ app.use((req, res, next) => {
 const expressJwt = require('express-jwt')
 const config = require('./config')
 // 访问哪个路径不需要token
-app.use(expressJwt({secret: config.secretKey}).unless({path: [/^\/api\//]}))
+app.use(expressJwt({ secret: config.secretKey }).unless({ path: [/^\/api\//, /^\/upload\//] }))
 
 
 const cors = require('cors')
@@ -26,18 +26,22 @@ app.use(cors())
 
 const userRouter = require('./router/user')
 const personRouter = require('./router/person')
+const uploadRouter = require('./router/uploadMusic')
 // 导入并使用用户路由模块
 app.use('/api', userRouter)
 app.use('/self', personRouter)
+app.use('/upload', uploadRouter)
 
 const joi = require('joi')
 const { date } = require('@hapi/joi/lib/template')
 const { compareSync } = require('bcryptjs')
 // 捕获异常
 app.use((err, req, res, next) => {
-    if(err instanceof joi.ValidationError) return res.fail(err)
+    if (err instanceof joi.ValidationError) {
+        return res.fail(err)
+    }
 
-    if(err.name === 'UnauthorizedError') return res.fail('身份认证失败')
+    if (err.name === 'UnauthorizedError') return res.fail('身份认证失败')
 
     res.fail(err)
 })

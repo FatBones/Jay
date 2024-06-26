@@ -14,6 +14,7 @@ import AlbumImg from "../components/AlbumImg.vue";
 import MusicTitle from "../components/MusicTitle.vue";
 import MusicPlayer from "../components/MusicPlayer.vue";
 import MusicWordsContainer from "../components/MusicWordsContainer.vue";
+
 export default {
   name: "PageBuilder",
   props: ["color", "musicTitle", "allMusic", "imgUrl", "len"],
@@ -43,7 +44,7 @@ export default {
     isAudioExits() {
       for (const item of this.newAllMusic) {
         try {
-          require("../../static" + item.url);
+          require("../../static" + item.url + item.audio);
           this.$set(item, 'isAudioReady', true)
         } catch {
           this.$set(item, 'isAudioReady', false)

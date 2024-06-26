@@ -3,12 +3,12 @@
     <div
       class="MusicBar"
       ref="MusicBar"
-      :class="music.isAudioReady ? 'showButtons' : ''"
+      :class="isAudioReady ? 'showButtons' : ''"
     >
       <p
         class="MusicName"
         ref="MusicName"
-        :class="music.isAudioReady ? 'readyMusic' : ''"
+        :class="isAudioReady ? 'readyMusic' : ''"
       >
         {{ music.name }}
       </p>
@@ -22,13 +22,16 @@
         @timeupdate="updateFun()"
         :src="audioSrc"
       ></audio>
-      <span v-if="music.isAudioReady" class="Group" ref="Group">
+      <span class="uploadMusic" v-if="!isAudioReady">
+        <MusicUploader :album="this.music.url"/>
+      </span>
+      <span class="Group" ref="Group">
         <a class="begin" href="javascript:;"
           ><img
             class="zanTing"
             ref="zanTing"
             :src="zanTingSrc"
-            @click="clickFun()"
+            @click="isAudioReady ? clickFun() : ''"
         /></a>
         <a class="admire" href="javascript:;"
           ><img class="dianZan" src="../assets/img/点赞.png"
@@ -52,6 +55,7 @@
 <script>
 import { addSong } from "../api/index";
 import { Message } from "element-ui";
+import MusicUploader from "./MusicUploader";
 
 let audio = document.getElementsByClassName("audio");
 let zanTing = document.getElementsByClassName("zanTing");
@@ -61,12 +65,14 @@ export default {
   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!动态指定url！！！！！！！！！！！！！！！！！！！！！！！！！！
   data() {
     return {
-      audioSrc: require("../../static" + this.music.url),
+      audioSrc: require("../../static" + this.music.url + this.music.audio),
       zanTingSrc: require("../assets/img/播放.png"),
       musicIndex: this.music.id,
+      isAudioReady: this.music.isAudioReady,
     };
   },
   props: ["music", "len", "allMusic", "albumName"],
+  components: { MusicUploader },
   mounted() {
     this.$nextTick(function () {
       //思考一下怎么放在其他地方只触发一次
@@ -75,10 +81,23 @@ export default {
     this.$bus.$on("updateGetId", (Id) => {
       getId = Id;
     });
+    this.$bus.$on("showOnplaying", (getId) => {
+      const onplayingElements = document.getElementsByClassName("onplaying");
+      for (let j = 0; j < audio.length; j++) {
+        if (j === getId) {
+          onplayingElements[j].style.opacity = "1";
+          continue;
+        }
+        onplayingElements[j].style.opacity = "0";
+      }
+    });
+    this.$bus.$on("changeIsAudioReady", (symbol) => {
+      this.isAudioReady = symbol;
+    });
     this.judge();
   },
   beforeDestroy() {
-    this.$bus.$off(["updateGetId"]);
+    this.$bus.$off(["updateGetId", "showOnplaying", "changeIsAudioReady"]);
   },
   methods: {
     // 歌曲数量自适应
@@ -180,7 +199,7 @@ export default {
   width: 20px;
   height: 20px;
   position: relative;
-  top: -33px;
+  top: -30px;
   left: 200px;
   opacity: 0;
   transform: rotate(10deg);
