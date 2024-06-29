@@ -1,6 +1,9 @@
 <template>
   <!--歌栏-->
   <div id="GroupOfMusic">
+    <span class="uploadMusic">
+      <MusicUploader :album="albumName"/>
+    </span>
     <EveryMusic
       v-for="music in allMusic"
       :key="music.id"
@@ -14,10 +17,11 @@
 
 <script>
 import EveryMusic from "./EveryMusic.vue";
+import MusicUploader from "./MusicUploader";
 
 export default {
   name: "GroupOfMusic",
-  components: { EveryMusic },
+  components: { EveryMusic, MusicUploader },
   props: ["allMusic", "albumName"],
   methods: {},
   beforeMount() {},
@@ -34,7 +38,7 @@ export default {
   height: 520px;
   background: rgba(255, 255, 255, 0.1);
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-  border-radius: 70px;
+  border-radius: 50px;
   transition: 0.5s;
 }
 
@@ -81,9 +85,16 @@ export default {
   right: 10px;
 }
 .uploadMusic {
-  position: relative;
-  left: 420px;
-  bottom: 55px;
+  position: absolute;
+  left: 287.5px;
+  top: -50px;
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 15px rgb(255 255 255 / 30%);
+  width: 25px;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .admire {
   position: absolute;

@@ -16,7 +16,7 @@
 import { uploadMusic } from "../api/upload.js";
 export default {
   name: "MusicUploader",
-  props: ["index", "album"],
+  props: ["album"],
   data() {
     return {
       selectedFile: null,
@@ -36,7 +36,7 @@ export default {
       );
 
       await uploadMusic(formData, this.selectedFile.name, this.album);
-      this.$bus.$emit("changeIsAudioReady", this.index);
+      this.$bus.$emit("changeIsAudioReady", this.selectedFile.name);
       // this.$notify({
       //   title: `${this.selectedFile.name} 上传成功`,
       //   type: "success",
@@ -53,6 +53,7 @@ export default {
   display: none;
 }
 .custom-button {
+  cursor: pointer;
   width: 20px;
   height: 20px;
   background-size: cover;

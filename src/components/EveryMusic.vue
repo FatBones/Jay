@@ -22,9 +22,6 @@
         @timeupdate="updateFun()"
         :src="audioSrc"
       ></audio>
-      <span class="uploadMusic" v-if="!isAudioReady">
-        <MusicUploader :index="musicIndex" :album="this.music.url" />
-      </span>
       <span class="Group" ref="Group">
         <a class="begin" href="javascript:;"
           ><img
@@ -43,11 +40,6 @@
             @click="keep(music.name, albumName)"
         /></a>
       </span>
-      <!-- <span v-else class="Group" style="opacity: 1;">
-        <a class="uploadMusic" href="javascript:;"
-          ><img class="shangChuan" src="../assets/img/uploadMusic.png"
-        /></a>
-      </span> -->
     </div>
   </div>
 </template>
@@ -55,7 +47,6 @@
 <script>
 import { addSong } from "../api/index";
 import { Message } from "element-ui";
-import MusicUploader from "./MusicUploader";
 
 let audio = document.getElementsByClassName("audio");
 let zanTing = document.getElementsByClassName("zanTing");
@@ -73,7 +64,6 @@ export default {
     };
   },
   props: ["music", "len", "allMusic", "albumName"],
-  components: { MusicUploader },
   mounted() {
     this.$nextTick(function () {
       //思考一下怎么放在其他地方只触发一次
@@ -92,12 +82,20 @@ export default {
         onplayingElements[j].style.opacity = "0";
       }
     });
-    this.$bus.$on("changeIsAudioReady", (index) => {
+    this.$bus.$on("changeIsAudioReady", (ablum) => {
+      let index = 0;
       let musicBarArr = document.getElementsByClassName("MusicBar");
       let musicNameArr = document.getElementsByClassName("MusicName");
+      for (const key in musicNameArr) {
+        if (
+          ablum.substring(0, ablum.indexOf(".")) === musicNameArr.key.innerText
+        ) {
+          index = key;
+        }
+      }
 
-      musicBarArr[index - 1].className += " showButtons";
-      musicNameArr[index - 1].className += " readyMusic";
+      musicBarArr[index].className += " showButtons";
+      musicNameArr[index].className += " readyMusic";
       // this.isAudioReady = symbol;
     });
     this.judge();
