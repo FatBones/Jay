@@ -27,20 +27,20 @@
     </div>
     <router-view v-if="isRouterAlive"></router-view>
     <MusicIcon />
-    <!-- <ClientPeople /> -->
+    <ClientPeople />
     <!-- <PersonalPage @click="toPersonalPage()" /> -->
   </div>
 </template>
 
 <script>
 import MusicIcon from "./components/MusicIcon.vue";
-// import ClientPeople from "./components/ClientPeople.vue";
+import ClientPeople from "./components/ClientPeople.vue";
 // import PersonalPage from "./PersonalPage/PersonalPage.vue";
 const { ipcRenderer } = window.require("electron");
 export default {
   name: "App",
   components: {
-    // ClientPeople,
+    ClientPeople,
     MusicIcon,
     // PersonalPage,
   },
