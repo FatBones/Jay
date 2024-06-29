@@ -58,7 +58,7 @@ export default {
       let num = 0;
       let musicNameArr = ["夜曲", "斗牛", "我的地盘", "彩虹", "借口"];
       if (musicNameArr.includes(musicName)) num = 1;
-      else if (musicName == "简单爱") num = 2;
+      else if (musicName == "简单爱" || musicName == "说走就走") num = 2;
       else if (musicName == "对不起") num = 3;
       //重载歌词
       this.keyArr = [];
@@ -76,6 +76,7 @@ export default {
         `http://localhost:${port}/word`
       );
       let res = await axios.get(lyricUrl);
+      console.log("🚀 ~ getWords ~ res:", res)
       await downloadWord(res.data, this.albumName + "/" + this.musicName);
       let lyrics = res.data.split("\n");
       let lrcObj = {};
