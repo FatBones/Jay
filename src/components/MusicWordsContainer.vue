@@ -56,7 +56,7 @@ export default {
     async getWords(musicName) {
       this.musicName = musicName;
       let num = 0;
-      let musicNameArr = ["夜曲", "斗牛", "我的地盘", "彩虹", "借口"];
+      let musicNameArr = ["夜曲", "斗牛", "我的地盘", "彩虹", "借口", "你好吗"];
       if (musicNameArr.includes(musicName)) num = 1;
       else if (musicName == "简单爱" || musicName == "说走就走") num = 2;
       else if (musicName == "对不起") num = 3;

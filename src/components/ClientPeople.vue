@@ -12,7 +12,11 @@
     </div> -->
 
     <!-- <div class="personal-img"> -->
-    <img class="personal-img" :src="require('../assets/personPic/头像.jpg')" />
+    <img
+      class="personal-img"
+      :src="require('../assets/personPic/头像.jpg')"
+      @click="showPersonalPage"
+    />
     <!-- </div> -->
   </div>
 </template>
@@ -27,6 +31,7 @@ export default {
       src: require("../assets/img/登录.png"),
       isShow: false,
       ShowOrHidden: false,
+      isFull: false,
     };
   },
   beforeUpdate() {
@@ -35,6 +40,20 @@ export default {
     }
   },
   methods: {
+    showPersonalPage() {
+      let personalBackground = document.getElementsByClassName(
+        "personal-background"
+      )[0];
+      if (this.isFull) {
+        personalBackground.style.width = "90px";
+        personalBackground.style.height = "90px";
+        this.isFull = false;
+      } else {
+        personalBackground.style.width = "100%";
+        personalBackground.style.height = "100vh";
+        this.isFull = true;
+      }
+    },
     async getPic() {
       let result = await person();
       this.src = result.data.user_pic;
@@ -170,22 +189,24 @@ export default {
 
 <style scoped>
 .personal-background {
-  position: absolute;
+  position: fixed;
   bottom: 0px;
-  width: 80px;
-  height: 80px;
+  width: 90px;
+  height: 90px;
   border-radius: 0 10px 0 10px;
   background-color: rgba(0, 0, 0, 0.35);
   box-shadow: 0 0 3px rgb(0 0 0 / 35%);
+  backdrop-filter: blur(60px);
+  transition: all 0.5s;
 }
 
 .personal-img {
   width: 60px;
   height: 60px;
   border-radius: 5px;
-  position: relative;
-  left: 10px;
-  top: 10px;
+  position: fixed;
+  left: 15px;
+  bottom: 15px;
   opacity: 0.8;
 }
 </style>

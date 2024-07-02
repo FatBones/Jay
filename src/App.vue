@@ -125,6 +125,7 @@ body::-webkit-scrollbar {
   width: 14px;
   height: 14px;
   padding: 15px 15px;
+  z-index: 3;
 }
 .max {
   background-image: url("./assets/img/full.png");

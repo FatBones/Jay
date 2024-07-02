@@ -37,12 +37,12 @@ export default {
 
       await uploadMusic(formData, this.selectedFile.name, this.album);
       this.$bus.$emit("changeIsAudioReady", this.selectedFile.name);
-      // this.$notify({
-      //   title: `${this.selectedFile.name} 上传成功`,
-      //   type: "success",
-      //   duration: 3000,
-      //   offset: 50
-      // });
+      this.$notify({
+        title: `${this.selectedFile.name} 上传成功`,
+        type: "success",
+        duration: 3000,
+        offset: 50
+      });
     },
   },
 };
